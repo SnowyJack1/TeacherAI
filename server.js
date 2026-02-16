@@ -188,6 +188,8 @@ app.post("/api/grade", authenticate, checkRateLimit, async function(req, res) {
 
     // Log the request for rate limiting
     db.prepare("INSERT INTO requests (user_id) VALUES (?)").run(req.userId);
+    console.log("RATE DEBUG - User: " + req.userId + " | DB: " + dbPath);
+    console.log("RATE DEBUG - ENV DB_PATH: " + process.env.DB_PATH);
 
     var aiResponse = response.choices[0].message.content;
     var parsed;
