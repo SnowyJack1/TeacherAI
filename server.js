@@ -141,6 +141,7 @@ app.get("/api/remaining", authenticate, function(req, res) {
   var oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString();
   var row = db.prepare("SELECT COUNT(*) as count FROM requests WHERE user_id = ? AND created_at > ?").get(req.userId, oneHourAgo);
   var remaining = REQUESTS_PER_HOUR - row.count;
+  console.log("SENDING REMAINING: " + remaining + " | Row count: " + row.count);
   res.json({ remaining: Math.max(0, remaining), limit: REQUESTS_PER_HOUR });
 });
 
