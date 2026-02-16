@@ -85,6 +85,7 @@ function App() {
       });
       setToken(res.data.token);
       setUsername(res.data.username);
+      try { sessionStorage.setItem("pg_token", res.data.token); sessionStorage.setItem("pg_user", res.data.username); } catch(e) {}
     } catch (err) {
       var msg = err.response && err.response.data && err.response.data.error
         ? err.response.data.error
@@ -98,6 +99,7 @@ function App() {
   var handleLogout = function() {
     setToken(null);
     setUsername("");
+    try { sessionStorage.removeItem("pg_token"); sessionStorage.removeItem("pg_user"); } catch(e) {}
     setAuthUser("");
     setAuthPass("");
     setResult(null);
