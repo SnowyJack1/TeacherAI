@@ -32,8 +32,8 @@ function App() {
   var _s8 = useState("input"); var activeTab = _s8[0]; var setActiveTab = _s8[1];
 
   // Auth state
-  var _s9 = useState(null); var token = _s9[0]; var setToken = _s9[1];
-  var _s10 = useState(""); var username = _s10[0]; var setUsername = _s10[1];
+  var _s9 = useState(function() { try { return sessionStorage.getItem("pg_token"); } catch(e) { return null; } }); var token = _s9[0]; var setToken = _s9[1];
+  var _s10 = useState(function() { try { return sessionStorage.getItem("pg_user") || ""; } catch(e) { return ""; } }); var username = _s10[0]; var setUsername = _s10[1];
   var _s11 = useState("login"); var authMode = _s11[0]; var setAuthMode = _s11[1];
   var _s12 = useState(""); var authUser = _s12[0]; var setAuthUser = _s12[1];
   var _s13 = useState(""); var authPass = _s13[0]; var setAuthPass = _s13[1];
