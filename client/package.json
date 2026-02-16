@@ -1,0 +1,103 @@
+{
+  "name": "pregrade",
+  "version": "1.0.0",
+  "description": "AI-powered assignment grader",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build": "cd client && npm install && npm run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.6.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "openai": "^4.20.0"
+  }
+}
+```
+
+Create a file called `.gitignore` in `C:\Users\Snowy\teacher\` with this content:
+```
+node_modules
+key.env
+.env
+client/node_modules
+```
+
+---
+
+**PART 3 — Build the React app**
+
+In PowerShell:
+```
+cd C:\Users\Snowy\teacher\client
+npm run build
+```
+
+This creates a `build` folder with the production version of your site.
+
+---
+
+**PART 4 — Push to GitHub**
+
+1. Download Git from **git-scm.com** if you don't have it (just install with all defaults)
+2. Go to **github.com**, click the **+** in the top right, click **New repository**
+3. Name it `pregrade`, keep it **Public**, don't add a README, click **Create repository**
+4. In PowerShell run these commands one at a time:
+```
+cd C:\Users\Snowy\teacher
+git init
+git add .
+git commit -m "pregrade initial commit"
+git branch -M main
+git remote add origin https://github.com/YOUR-USERNAME/pregrade.git
+git push -u origin main
+```
+
+Replace `YOUR-USERNAME` with your actual GitHub username. It'll ask you to log in the first time.
+
+---
+
+**PART 5 — Deploy on Render**
+
+1. Go to **render.com** and click **Get Started for Free**
+2. Sign up with your **GitHub account** (easiest)
+3. Once logged in, click **New** at the top, then **Web Service**
+4. It'll show your GitHub repos — select **pregrade**
+5. Fill in these settings:
+   - **Name:** `pregrade`
+   - **Region:** pick the closest one to you (Ohio or Oregon)
+   - **Branch:** `main`
+   - **Build Command:** `cd client && npm install && npm run build`
+   - **Start Command:** `node server.js`
+   - **Instance Type:** Free
+6. Click **Advanced** and add an environment variable:
+   - **Key:** `OPENAI_API_KEY`
+   - **Value:** your actual OpenAI API key (the `sk-...` key)
+7. Click **Create Web Service**
+
+It'll take a few minutes to build. When it's done you'll get a live URL like `https://pregrade.onrender.com`.
+
+---
+
+**PART 6 — Connect a custom domain (optional)**
+
+1. In your Render dashboard, click your pregrade service
+2. Go to **Settings** then scroll to **Custom Domains**
+3. Click **Add Custom Domain** and type your domain (like `pregrade.com`)
+4. Render will give you DNS records (usually a CNAME)
+5. Go to your domain registrar (Namecheap, Cloudflare, etc.) and add those DNS records
+6. Wait a few minutes for it to propagate — then your domain is live with free SSL
+
+---
+
+**To update your site later**, just edit your files locally, then run:
+```
+cd C:\Users\Snowy\teacher
+git add .
+git commit -m "updated something"
+git push
